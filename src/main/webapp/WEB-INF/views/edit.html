@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>Edit Staff</h3>
+<p>
+    <a th:href="@{/staff}">
+        Back to staff list
+    </a>
+</p>
+<div id="form">
+    <form th:action="@{/staff/update}" th:object="${staffEdit}"
+          method="POST" novalidate="novalidate" enctype="multipart/form-data">
+        <table>
+            <tr hidden>
+                <td>id</td>
+                <td><input type="text" th:field="*{idStaff}"/></td>
+            <tr>
+            <tr>
+                <td>Employee code</td>
+                <td><input type="text" readonly th:field="*{staffCode}"/></td>
+            <tr>
+                <td colspan="2" style="color: red" th:if="${#fields.hasErrors('staffCode')}" th:errors="*{staffCode}"></td>
+            </tr>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" th:field="*{staffName}"/></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="color: red" th:if="${#fields.hasErrors('staffName')}" th:errors="*{staffName}"></td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td><input type="number"th:field="*{staffAge}"/></td>
+            </tr>
+            <tr>
+                <td>Salary</td>
+                <td><input type="number"th:field="*{salary}"/></td>
+            </tr>
+            <tr>
+                <td>Branch</td>
+                <td><SELECT th:field="*{branch}">
+                    <option th:each="br:${branch}" th:text="${br.getNameBranch()}" th:value="${br.getIdBranch()}" th:selected="${br.getIdBranch()==staffEdit.branch.getIdBranch()}" >
+                    </option>
+                </SELECT></td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit">Summit</button>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
+

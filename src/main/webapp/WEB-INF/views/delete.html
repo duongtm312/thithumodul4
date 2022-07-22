@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>Remove Staff</h3>
+<p>
+    <a th:href="@{/staff}">
+        Back to staff list
+    </a>
+</p>
+<div id="form">
+    <form  th:action="@{/staff/delete}" th:object="${staffDelete}"
+          method="POST" novalidate="novalidate">
+        <div hidden>
+            <label>Id</label>
+            <input type="text"  th:field="*{idStaff}"/>
+        </div>
+        <div>
+            <label>Employee</label>
+            <input type="text" readonly th:field="*{staffCode}"/>
+        </div>
+        <div>
+            <label>Name</label>
+            <input type="text" readonly th:field="*{staffName}"/>
+        </div>
+        <div>
+            <label>Age</label>
+            <input type="text" readonly th:field="*{staffAge}"/>
+        </div>
+        <div>
+            <label>Salary</label>
+            <input type="text" readonly th:field="*{salary}"/>
+        </div>
+        <div>
+            <label>Branch</label>
+            <input type="text" readonly name="branch" th:value="${staffDelete.branch.getNameBranch()}"/>
+        </div>
+        <input type="submit" value="Remove"/>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

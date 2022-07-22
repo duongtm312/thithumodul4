@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>Add Staff</h3>
+<p>
+    <a th:href="@{/staff}">
+        Back to product list
+    </a>
+</p>
+<div id="form">
+    <form th:object="${staff}" th:action="@{/staff/create}"
+          method="POST" novalidate="novalidate" >
+        <table >
+            <tr>
+                <td>Employee Code</td>
+                <td><input type="text" th:field="*{staffCode}"/></td>
+                <td colspan="2" style="color: red" th:if="${#fields.hasErrors('staffCode')}" th:errors="*{staffCode}"></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td><input type="text"th:field="*{staffName}" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="color: red" th:if="${#fields.hasErrors('staffName')}" th:errors="*{staffName}"></td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td><input type="number"th:field="*{staffAge}" /></td>
+            </tr>
+            <tr>
+                <td>Salary</td>
+                <td><input type="number"th:field="*{salary}" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><SELECT th:field="*{branch}">
+                    <option th:each="br:${branch}" th:text="${br.getNameBranch()}" th:value="${br.getIdBranch()}">
+                    </option>
+                </SELECT></td>
+            </tr>
+            <tr><td><button type="submit">Summit</button></td></tr>
+
+        </table>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

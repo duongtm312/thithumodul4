@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+</head>
+<body>
+<h3>Staff</h3>
+<p>
+    <a th:href="@{/staff/create}">
+        Add new staff
+    </a>
+</p>
+<div class="notify">
+    <div th:if="${success}">
+        <span th:text="${success}"></span>
+    </div>
+</div>
+<div>
+    <form action="/staff/search" method="post">
+        <table>
+            <tr>
+                <td>
+                    <input type="text" placeholder="Search" name="search">
+                </td>
+                <td>
+                    <button type="submit"> Search</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<table id = "customers">
+    <thead>
+    <tr>
+        <th>Employee Code</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Salary</th>
+        <th>Branch</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="s : ${staffs}">
+        <td th:text="${s.getStaffCode()}"></td>
+        <td><a th:href="@{/staff/{id}/view(id=${s.getIdStaff()})}" th:text="${s.getStaffName()}"></a></td>
+        <td th:text="${s.getStaffAge()}"></td>
+        <td th:text="${s.getSalary()}"></td>
+        <td th:text="${s.getBranch().getNameBranch()}"></td>
+
+        <td><a th:href="@{/staff/{id}/edit(id=${s.getIdStaff()})}">edit</a></td>
+        <td><a th:href="@{/staff/{id}/delete(id=${s.getIdStaff()})}">delete</a></td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<b th:text="${staffs.number} + 1"></b> / <b th:text="${staffs.totalPages}"></b>
+
+<a th:each="i: ${#numbers.sequence(1, staffs.totalPages)}" class="active" th:text="${i}"
+   th:href="@{/staff(page=${i} - 1)}"></a>
+<button th:if="${staffs.hasPrevious()}"><a th:href="@{/staff(page=${staffs.number}-1)}"><<<<<<</a></button>
+<button th:if="${staffs.hasNext()}" ><a th:href="@{staff(page=${staffs.number}+1)}">>>>>>></a></button>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
