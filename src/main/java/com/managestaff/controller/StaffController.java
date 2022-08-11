@@ -55,7 +55,7 @@ public class StaffController {
     }
 
     @PostMapping("/create")
-    public ModelAndView create(@Valid @ModelAttribute("staff") Staff staff, BindingResult bindingResult) {
+    public ModelAndView create(@Valid @ModelAttribute("staff") Staff staff, BindingResult bindingResult, RedirectAttributes redirect) {
         staffValidate.validate(staff, bindingResult);
         if (bindingResult.hasFieldErrors()) {
             ModelAndView modelAndView = new ModelAndView("/create");
@@ -63,6 +63,7 @@ public class StaffController {
         }
         staffService.save(staff);
         ModelAndView modelAndView = new ModelAndView("redirect:/staff");
+        redirect.addFlashAttribute("success", "Create staff successfully!");
         return modelAndView;
     }
     @GetMapping("/{id}/view")
@@ -77,7 +78,7 @@ public class StaffController {
         return "/edit";
     }
     @PostMapping("/update")
-    public ModelAndView update(@Valid @ModelAttribute("staffEdit") Staff staff, BindingResult bindingResult) {
+    public ModelAndView update(@Valid @ModelAttribute("staffEdit") Staff staff, BindingResult bindingResult, RedirectAttributes redirect) {
         if (bindingResult.hasFieldErrors()) {
             ModelAndView modelAndView = new ModelAndView("/edit");
             modelAndView.addObject("staffEdit", staff);
@@ -85,6 +86,7 @@ public class StaffController {
         }
         staffService.save(staff);
         ModelAndView modelAndView = new ModelAndView("redirect:/staff");
+        redirect.addFlashAttribute("success", "Edit staff successfully!");
         return modelAndView;
     }
     @GetMapping("/{id}/delete")

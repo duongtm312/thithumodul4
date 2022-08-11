@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/layout :: head">
 </head>
-<body>
-<h3>Staff</h3>
+<body style="background-image: url(https://xemthuthuat.com/wp-content/uploads/2017/11/bo-hinh-nen-desktop-dep-cho-may-tinh-2017-8381.jpg)">
+<h3>Staff Manage</h3>
 <p>
-    <a th:href="@{/staff/create}">
+    <a  class="btn btn-success" th:href="@{/staff/create}">
         Add new staff
     </a>
 </p>
@@ -18,17 +18,17 @@
     <form action="/staff/search" method="post">
         <table>
             <tr>
-                <td>
+                <td id="searchInput">
                     <input type="text" placeholder="Search" name="search">
                 </td>
                 <td>
-                    <button type="submit"> Search</button>
+                    <button type="submit" > <i class="fa fa-search"></i></button>
                 </td>
             </tr>
         </table>
     </form>
 </div>
-<table id = "customers">
+<table id = "staff">
     <thead>
     <tr>
         <th>Employee Code</th>
@@ -43,21 +43,21 @@
     <tbody>
     <tr th:each="s : ${staffs}">
         <td th:text="${s.getStaffCode()}"></td>
-        <td><a th:href="@{/staff/{id}/view(id=${s.getIdStaff()})}" th:text="${s.getStaffName()}"></a></td>
+        <td><a class="btn btn-info" th:href="@{/staff/{id}/view(id=${s.getIdStaff()})}" th:text="${s.getStaffName()}"></a></td>
         <td th:text="${s.getStaffAge()}"></td>
         <td th:text="${s.getSalary()}"></td>
         <td th:text="${s.getBranch().getNameBranch()}"></td>
 
-        <td><a th:href="@{/staff/{id}/edit(id=${s.getIdStaff()})}">edit</a></td>
-        <td><a th:href="@{/staff/{id}/delete(id=${s.getIdStaff()})}">delete</a></td>
+        <td><a class="btn btn-primary" th:href="@{/staff/{id}/edit(id=${s.getIdStaff()})}">edit</a></td>
+        <td><a  class="btn btn-danger" th:href="@{/staff/{id}/delete(id=${s.getIdStaff()})}">delete</a></td>
     </tr>
     </tbody>
 </table>
 <br>
-<b th:text="${staffs.number} + 1"></b> / <b th:text="${staffs.totalPages}"></b>
+<b th:text="${staffs.number} + 1" style="color: #dddddd"></b> / <b th:text="${staffs.totalPages}" style="color: #dddddd"></b>
 
-<a th:each="i: ${#numbers.sequence(1, staffs.totalPages)}" class="active" th:text="${i}"
-   th:href="@{/staff(page=${i} - 1)}"></a>
+<!--<a th:each="i: ${#numbers.sequence(1, staffs.totalPages)}" class="active" th:text="${i}"-->
+<!--   th:href="@{/staff(page=${i} - 1)}"></a>-->
 <button th:if="${staffs.hasPrevious()}"><a th:href="@{/staff(page=${staffs.number}-1)}"><<<<<<</a></button>
 <button th:if="${staffs.hasNext()}" ><a th:href="@{staff(page=${staffs.number}+1)}">>>>>>></a></button>
 <footer th:replace="/layout :: footer"></footer>

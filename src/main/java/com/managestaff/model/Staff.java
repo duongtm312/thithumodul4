@@ -1,6 +1,8 @@
 package com.managestaff.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -11,7 +13,10 @@ public class Staff {
 
     private String staffCode;
     @Size(max = 15, message = "Tên quá dài")
+    @Size(min = 5, message = "Tên quá ngắn")
     private String staffName;
+    @Min(value = 18,message = "Tuổi phải trên 18")
+    @Max(value = 60,message = "Tuổi phải nhỏ hơn 60")
     private int staffAge;
     private int salary;
     @ManyToOne
